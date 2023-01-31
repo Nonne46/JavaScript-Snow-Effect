@@ -7,8 +7,8 @@
 var numParticles = window.innerWidth / 3;
 var maxSpeed = 2.5;
 var minSpeed = 1;
-var maxSize = 5;
-var minSize = 3;
+var maxSize = 120;
+var minSize = 30;
 var maxOpacity = 1;
 var minOpacity = 0.2;
 var canvasId = "snowcanvas";
@@ -16,9 +16,18 @@ var canvasId = "snowcanvas";
 // If the following is true, the canvas resolution will be set to match the full viewport width and height.
 var fixCanvasResolution = true;
 
+var imageArray = ['q1.png', 'q2.png', 'q3.png', 'q4.png', 'q5.png'];
+var images = [];
+
 var snow_particles = [];
 
 window.onload = function() {
+	for (var i = 0; i < imageArray.length; i++) {
+	  var image = new Image();
+	  image.src = 'images/' + imageArray[i];
+	  images.push(image);
+	}
+
 
 	if (fixCanvasResolution) {
 		var c = document.getElementById(canvasId);
@@ -36,19 +45,17 @@ function Redraw() {
 	var ctx = c.getContext("2d");
 	ctx.clearRect(0,0,c.width,c.height);
 	for (i = 0; i < snow_particles.length; i++) {
-		var newYPos = snow_particles[i].yPos + snow_particles[i].speed;
-		if (newYPos > window.innerHeight) {
-			newYPos = getRandomInt(-100,-10);
-			snow_particles[i].xPos = getRandomInt(0, window.innerWidth);
-			snow_particles[i].speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
-			snow_particles[i].opacity = Math.random() * (maxOpacity - minOpacity) + minOpacity;
-			snow_particles[i].size = Math.random() * (maxSize - minSize) + minSize;
-		}
-		snow_particles[i].yPos = newYPos;
-		ctx.beginPath();
-		ctx.arc(snow_particles[i].xPos, newYPos, snow_particles[i].size, 0, 2 * Math.PI);
-		ctx.fillStyle = "rgba(255, 255, 255, " + snow_particles[i].opacity + ")";
-		ctx.fill();
+	  var newYPos = snow_particles[i].yPos + snow_particles[i].speed;
+	  if (newYPos > window.innerHeight) {
+		newYPos = getRandomInt(-100,-10);
+		snow_particles[i].xPos = getRandomInt(0, window.innerWidth);
+		snow_particles[i].speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
+		snow_particles[i].opacity = Math.random() * (maxOpacity - minOpacity) + minOpacity;
+		snow_particles[i].size = Math.random() * (maxSize - minSize) + minSize;
+		snow_particles[i].image = images[Math.floor(Math.random() * images.length)];
+	  }
+	  snow_particles[i].yPos = newYPos;
+	  ctx.drawImage(snow_particles[i].image, snow_particles[i].xPos, newYPos, snow_particles[i].size, snow_particles[i].size);
 	}
 }
 
