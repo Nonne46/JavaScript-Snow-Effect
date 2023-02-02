@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Snow Demo</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<div class="hide-overflow">
-		<canvas id="snowcanvas">
-		</canvas>
-	</div>
-	
-	<script type="text/javascript" src="snoweffect.js"></script>
-</body>
+  <head>
+    <title>Snow Demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="hide-overflow">
+      <canvas id="snowcanvas"> </canvas>
+    </div>
+
+    <script type="text/javascript" src="snoweffect.js"></script>
+    <!-- <script src="wandering-triangles.js"></script> -->
+    <script type="text/javascript">
+      var canvas = document.getElementById("snowcanvas");
+
+      function onResize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      onResize();
+      window.onresize = onResize;
+
+      //   var animSettings = wanderingTriangles.baseSettings();
+      //   animSettings.backgroundColour = "black";
+      //   animSettings.primaryColour = "gold";
+      //   animSettings.secondaryColour = "gray";
+      //   var instance = wanderingTriangles.init(canvas, animSettings);
+    </script>
+  </body>
 </html>
