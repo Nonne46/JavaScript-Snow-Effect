@@ -29,6 +29,7 @@ var imageArray = [
   "q15.webp",
   "q16.webp",
   "q17.webp",
+  "q18.webp",
 ];
 var images = [];
 
